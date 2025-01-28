@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add Book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+
+
+<body>
+    <h2>New book in Bookstore</h2>
+
+
+    <h2 th:if="${books.size() > 0}" th:text="${books[books.size() - 1].title + ' by ' + books[books.size() - 1].author
+        + ' ISBN:'+books[books.size()-1].isbn + ' year ' + books.[books.size()-1].publicationYear
+        + ' price ' + books[books.size()-1].price + ' €'}">
+    </h2>
+    <p>
+        // <a href="/booklist">List of books in store</a>
+        // <a href="/addbook">Add a new book </a>
+    </p>
+
+
+
+</body>
+
+</html>
