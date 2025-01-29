@@ -2,6 +2,7 @@ package viikko2.bookstore_t5.domain;
 
 import java.math.BigDecimal;
 
+@Entity
 public class Book {
     private String title;
     private String author;
