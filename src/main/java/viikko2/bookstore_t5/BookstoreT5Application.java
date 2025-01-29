@@ -19,16 +19,16 @@ public class BookstoreT5Application {
 		SpringApplication.run(BookstoreT5Application.class, args);
 	}
 
-		@Bean
-	public CommandLineRunner studentDemo(BookRepository repository) {
+	@Bean
+	public CommandLineRunner bookDemo(BookRepository repository) {
 		return (args) -> {
 			log.info("save a couple of students");
 			repository.save(new Book("Aku Annka", "Don Johnson"));
-			repository.save(new Book("Havukka-ahon ajattelija", "Veikko Huovinen"));	
-			
-			repository.save(new Book("Musta Kostaja", "Adam Smithee"));
-			
-			log.info("fetch all students");
+			repository.save(new Book("Havukka-ahon ajattelija", "Veikko Huovinen"));
+
+			repository.save(new Book("Naamio", "Adam Smithee"));
+
+			log.info("fetch all books");
 			for (Book student : repository.findAll()) {
 				log.info(student.toString());
 			}
