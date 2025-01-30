@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <h1> Add a new book</h1>
+    <h1> Delete book - ei vielä toimi</h1>
 
-    <form action="#" th:action="@{/save}" th:object="${book}" method="post">
+    <form action="#" th:action="@{/saveBook}" th:object="${book}" method="post">
 
         <p>
             Title <input type="text" placeholder="title" th:field="*{title}" />

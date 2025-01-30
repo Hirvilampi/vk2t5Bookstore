@@ -1,66 +1,59 @@
 package viikko2.bookstore_t5.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.Model;
-
 import viikko2.bookstore_t5.domain.Book;
 import viikko2.bookstore_t5.domain.BookRepository;
-
 
 @Controller
 public class BookController {
 
-    private static List<Book> bookList = new ArrayList<>();
-
     private BookRepository repository;
 
-    public BookController(BookRepository repository){
+    public BookController(BookRepository repository) {
         this.repository = repository;
     }
 
-    @RequestMapping(value={"/","index"})
-    public String showMainPage() {
-        return "index";
+    @RequestMapping(value = { "/", "booklist" })
+    public String showCustomers(Model model) {
+        model.addAttribute("books", repository.findAll());
+        return "bookList";
     }
 
-    @GetMapping("/addbook")
+    @RequestMapping("/addbook")
     public String addFriendForm(Model model) {
         model.addAttribute("book", new Book());
         return "addbook";
     }
 
-    @PostMapping("saveBook")
-    // public String saveCar(@ModelAttribute Car car, Model model) {
-    public String saveBook(Book book) {
-        System.out.println("Database is not implemented : " + book);
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(Book book) {
         repository.save(book);
-        // TODO save to database
-        // now we are saving to list variable instead of db
-        bookList.add(book);
-
-        return "redirect:/newbook";
-        // return "redirect:/carlist";
+        return "redirect:booklist";
     }
 
-    @GetMapping("/newbook")
-    public String showNewFriend(Model model) {
-        System.err.println("books...");
-        model.addAttribute("books", bookList);
-        return "result";
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteBook(@PathVariable("id") Long bookId, Model model) {
+        repository.deleteById(bookId);
+        return "redirect:../booklist";
     }
 
-    @GetMapping("/booklist")
-    public String showCustomers(Model model) {
-        System.out.println("books...");
-        // insert book list to model as a key-value pair
-        model.addAttribute("books", repository.findAll());
-        return "books";
+    @RequestMapping("/editbook/{id}")
+    public String editBookForm(@PathVariable("id") Long bookId, Model model) {
+        Book book = repository.findById(bookId).orElse(null);
+        model.addAttribute("book", book);
+        return "editbook";
+    }
+
+    @RequestMapping(value = "/editsave/{id}", method = RequestMethod.POST)
+    public String editBook(@PathVariable("id") Long bookId, @ModelAttribute Book book) {
+        book.setId(bookId); // Ensure the book ID is set
+        repository.save(book);
+        return "redirect:../booklist";
     }
 
 }
