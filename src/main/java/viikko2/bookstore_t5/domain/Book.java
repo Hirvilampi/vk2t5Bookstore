@@ -1,9 +1,9 @@
 package viikko2.bookstore_t5.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
 public class Book {
@@ -39,7 +39,6 @@ public class Book {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public Book(String title, String author) {
         this.title = title;
@@ -91,6 +90,5 @@ public class Book {
         return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
                 + ", isbn=" + isbn + ", price=" + price + "]";
     }
-
 
 }
