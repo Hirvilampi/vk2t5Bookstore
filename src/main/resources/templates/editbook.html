@@ -3,9 +3,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Add book</title>
+    <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <title>Edit book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+
+
+    <style>
+        form {
+            margin-left: 5px;
+        }
+        h1 {
+            margin-left: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +34,7 @@
         </p>
         <p>
             Year of publication <input type="number" th:field="*{publicationYear}" />
-            " th:field="*{publicationYear}" />
+          
         </p>
         <p>
             ISBN <input type="text" th:field="*{isbn}" />
@@ -32,7 +44,7 @@
         </p>
 
 
-        <input type="submit" value="Save Book" />
+        <input  class="btn btn-success" type="submit" value="Save Book" />
 
     </form>
 

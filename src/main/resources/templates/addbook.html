@@ -6,10 +6,20 @@
     <title>Add book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+    <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <style>
+        form {
+            margin-left: 5px;
+        }
+        h1 {
+            margin-left: 5px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1> Add a new book</h1>
+    <h1>Add a new book</h1>
 
     <form action="#" th:action="@{/save}" th:object="${book}" method="post">
 
@@ -31,8 +41,9 @@
         </p>
 
     
-        <input type="submit" value="Add Book" />
-
+        <input type="submit" class="btn btn-success" value="Add Book" />
+        
+  
     </form>
 
 </body>
