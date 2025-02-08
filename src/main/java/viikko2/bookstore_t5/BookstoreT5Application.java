@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import viikko2.bookstore_t5.domain.Book;
 import viikko2.bookstore_t5.domain.BookRepository;
+import viikko2.bookstore_t5.domain.Category;
+import viikko2.bookstore_t5.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreT5Application {
@@ -20,13 +22,22 @@ public class BookstoreT5Application {
 	}
 
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository repository) {
+	public CommandLineRunner bookDemo(BookRepository repository, CategoryRepository cRepository) {
 		return (args) -> {
-			log.info("save a couple of students");
-			repository.save(new Book("Aku Annka", "Don Johnson"));
-			repository.save(new Book("Havukka-ahon ajattelija", "Veikko Huovinen"));
+			log.info("create few categories");
 
-			repository.save(new Book("Naamio", "Adam Smithee"));
+			Category category1 = new Category("Comics");
+			Category category2 = new Category("Fiction");
+			Category category3 = new Category("Non-Fiction");
+
+			cRepository.save(category1);
+			cRepository.save(category2);
+			cRepository.save(category3);
+
+			log.info("save a couple of books");
+			repository.save(new Book("Aku Annka", "Don Rosa", 1952, "243-11-1", 13.50, category1));
+			repository.save(new Book("Havukka-ahon ajattelija", "Veikko Huovinen", category2));
+			repository.save(new Book("Naamio", "Adam Smithee", category3));
 
 			log.info("fetch all books");
 			for (Book student : repository.findAll()) {
@@ -36,6 +47,13 @@ public class BookstoreT5Application {
 			for (Book student : repository.findByTitle("Naamio")) {
 				log.info(student.toString());
 			}
+
+		};
+	}
+
+	@Bean
+	public CommandLineRunner demo(CategoryRepository crepository) {
+		return (args) -> {
 
 		};
 	}

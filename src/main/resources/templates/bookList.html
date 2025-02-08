@@ -12,8 +12,8 @@
 
 
 <body>
-<br>
- <h1>&nbsp &nbsp Books in bookstore</h1>
+    <br>
+    <h1>&nbsp &nbsp Books in bookstore</h1>
     <table class="table table-striped">
         <tr>
             <th align="left"></th>
@@ -23,6 +23,7 @@
             <th align="left">Year</th>
             <th align="left">ISBN</th>
             <th align="left">Price €</th>
+            <th align="left">Category</th>
             <th align="left"></th>
             <th align="left"></th>
         </tr>
@@ -34,6 +35,7 @@
             <td th:text="${kirja.publicationYear}"></td>
             <td th:text="${kirja.isbn}"></td>
             <td th:text="${kirja.price}"></td>
+            <td th:text="${kirja.category.name}"></td>
             <td><a type="button" class="btn btn-danger" th:href="@{'/delete/{id}'(id=${kirja.id})}">Delete</a></td>
             <td><a type="button" class="btn btn-primary" th:href="@{'/editbook/{id}'(id=${kirja.id})}">Edit</a></td>
 
