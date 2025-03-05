@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,22 +37,30 @@ public class BookController {
     @Autowired
     private CategoryRepository crepository;
 
-    @RequestMapping(value = { "/", "booklist" })
+	// login to show books
+    @RequestMapping(value={"/login","/"})
+    public String login() {	
+        return "login";
+    }	
+
+    @RequestMapping(value = {"booklist", "/booklist" })
     public String showCustomers(Model model) {
         model.addAttribute("books", repository.findAll());
         return "bookList";
     }
 
     @RequestMapping("/addbook")
-    public String addFriendForm(Model model) {
+    public String addBookForm(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("categories", crepository.findAll());
         return "addbook";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult) {
+    public String save(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("book", book);
+            model.addAttribute("categories", crepository.findAll());
             return "addbook";
         } else {
             repository.save(book);
@@ -60,6 +69,7 @@ public class BookController {
 
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
         repository.deleteById(bookId);

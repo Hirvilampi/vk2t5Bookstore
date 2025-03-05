@@ -1,5 +1,7 @@
 package viikko2.bookstore_t5.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ public class Book {
     @Size(min = 3, max = 100, message = "must be between 3-100 characters")
     private String title;
 
+    @Column(name = "author")
     @NotEmpty(message = "can't be empty")
     @Size(min = 3, max = 100, message = "must be between 3-100 characters")
     private String author;
@@ -31,6 +34,7 @@ public class Book {
     private double price;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "categoryid")
     private Category category;
 
