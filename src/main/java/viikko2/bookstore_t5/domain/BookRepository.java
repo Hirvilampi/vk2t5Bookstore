@@ -19,4 +19,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
        List<Book> findByPriceBetween(double price, double price2);
 
+   
+
 }
