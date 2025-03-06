@@ -12,8 +12,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import viikko2.bookstore_t5.domain.Category;
+import jakarta.persistence.Table;
 
 @Entity
+@Table( name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,9 +31,15 @@ public class Book {
     @Size(min = 3, max = 100, message = "must be between 3-100 characters")
     private String author;
 
-    private int publicationYear;
+    @Column(name = "publicationyear")
+    private Integer publicationYear;
+
+    @Column(name = "isbn")
+    @Size(max=100)
     private String isbn;
-    private double price;
+
+    @Column(name = "price")
+    private Double price;
 
     @ManyToOne
     @JsonIgnore
@@ -41,7 +49,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, int publicationYear, String isbn, double price, Category category) {
+    public Book(String title, String author, Integer publicationYear, String isbn, double price, Category category) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
@@ -80,11 +88,11 @@ public class Book {
         this.author = author;
     }
 
-    public int getPublicationYear() {
+    public Integer getPublicationYear() {
         return publicationYear;
     }
 
-    public void setPublicationYear(int publicationYear) {
+    public void setPublicationYear(Integer publicationYear) {
         this.publicationYear = publicationYear;
     }
 
@@ -110,6 +118,10 @@ public class Book {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getFormattedPrice() {
+        return price != null ? String.format("%.2f €", price) : "N/A";
     }
 
     @Override

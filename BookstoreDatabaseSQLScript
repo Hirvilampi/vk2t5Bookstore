@@ -1,0 +1,39 @@
+DROP TABLE IF EXISTS book;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS appuser;
+
+CREATE TABLE category
+(categoryid BIGSERIAL PRIMARY KEY
+, name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE book
+(id BIGSERIAL PRIMARY KEY
+, title VARCHAR(100) NOT NULL
+, author VARCHAR(100) NOT NULL
+, publicationyear INT
+, isbn VARCHAR(100)
+, price DOUBLE PRECISION
+, categoryid BIGINT
+, FOREIGN KEY (categoryid) REFERENCES category(categoryid)
+);
+
+INSERT INTO category (name)
+VALUES ('Comics'),
+('Fiction'),
+('Non-Fiction');
+
+INSERT INTO book (title,author,publicationyear,isbn,price,categoryid)
+VALUES ('Aku Annka','Don Rosa',1952,'243-11-1',13.50,1),
+('Havukka-ahon ajattelija','Veikko Huovinen',NULL,NULL,NULL,2),
+('Naamio','Adam Smithee',NULL,NULL,NULL,3);
+
+CREATE TABLE appuser
+(id BIGSERIAL PRIMARY KEY
+, username VARCHAR(30) NOT NULL
+, password VARCHAR(100) NOT NULL
+, role VARCHAR(10) NOT NULL);
+
+INSERT INTO appuser(username,password,role)
+VALUES ('user','$2y$10$rQgJQcJpLV0cBZiuibmRdO80ZPZiQJFwHQbcJ.g.MHUjIcFNQBNNm','USER'),
+('admin','$2y$10$RtMvRumaP/ByXMVBRVO2SOH5X3GD3LpxTnXMOfuaG3zFB73WASWa6','ADMIN');

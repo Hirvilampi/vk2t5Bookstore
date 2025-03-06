@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "UserTable")
+@Table(name = "appuser")
 public class AppUser {
 
     @Id

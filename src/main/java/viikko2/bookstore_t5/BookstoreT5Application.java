@@ -38,7 +38,7 @@ public class BookstoreT5Application {
 			CategoryRepository cRepository, AppUserRepository urepository) {
 		return (args) -> {
 			log.info("create few categories");
-
+/* 
 			Category category1 = new Category("Comics");
 			Category category2 = new Category("Fiction");
 			Category category3 = new Category("Non-Fiction");
@@ -72,7 +72,7 @@ public class BookstoreT5Application {
 			urepository.save(user2);
 			log.info(user1.getUsername() + " " + user1.getPasswordHash());
 			log.info(user2.getUsername() + " " + user2.getPasswordHash());
-
+*/
 		};
 	}
 

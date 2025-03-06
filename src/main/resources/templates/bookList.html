@@ -53,21 +53,43 @@
                 <td th:text="${kirja.id}"></td>
                 <td th:text="${kirja.title}"></td>
                 <td th:text="${kirja.author}"></td>
-                <td th:text="${kirja.publicationYear}"></td>
-                <td th:text="${kirja.isbn}"></td>
-                <td th:text="${kirja.price}"></td>
-                <td th:text="${kirja.category.name}"></td>
-                <td sec:authorize="hasAuthority('ADMIN')"><a type="button" class="btn btn-danger"
-                        th:href="@{'/delete/{id}'(id=${kirja.id})}">Delete</a></td>
-                <td sec:authorize="hasAuthority('ADMIN')"><a type="button" class="btn btn-primary"
-                        th:href="@{'/editbook/{id}'(id=${kirja.id})}">Edit</a></td>
+                <td th:text="${kirja.publicationYear != null ? kirja.publicationYear : 'N/A'}"></td>
+                <td th:text="${kirja.isbn != null ? kirja.isbn : 'N/A'}"></td>
+                <td th:text="${kirja.formattedPrice}"></td>
+              <!--               <td th:text="${kirja.isbn != null ? kirja.isbn : 'N/A'}"></td>
+                <td th:text="${kirja.price != null ? #strings.concat(kirja.price, ' €') : 'N/A'}"></td>
 
+
+
+
+
+                <td>
+                    <th:block th:if="${kirja.price != null}">
+                        <span th:text="${kirja.price}"></span>
+                    </th:block>
+                    <th:block th:if="${kirja.price == null}">
+                        <span>N/A</span>
+                    </th:block>
+                </td>
+      
+                <td th:if="${kirja.price != null}" th:text="${kirja.price}" ></td>
+                <td th:if="${kirja.price == null}">N/A</td>
+  -->
+                <td th:text="${kirja.category.name}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <a type="button" class="btn btn-danger" th:href="@{'/delete/{id}'(id=${kirja.id})}">Delete</a>
+                </td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <a type="button" class="btn btn-primary" th:href="@{'/editbook/{id}'(id=${kirja.id})}">Edit</a>
+                </td>
             </tr>
+
         </table>
 
         <br>
         &nbsp;<a type="button" class="btn btn-outline-primary" href="/booklist">Refresh booklist </a> &nbsp;&nbsp; <a
-        sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-success" href="/addbook"> Add a new book </a>
+            sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-success" href="/addbook"> Add a new book
+        </a>
 
     </div>
 

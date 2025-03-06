@@ -5,21 +5,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name="category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long categoryid;
 
+    @Column(name="name")
+    @NotEmpty(message = "must have title")
+    @Size(min = 3, max = 100, message = "must be between 3-100 characters")
     private String name;
 
     @JsonIgnoreProperties("category")
+    @Column(name="category")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Book> books;
 
