@@ -76,6 +76,7 @@ public class BookController {
         return "redirect:../booklist";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping("/editbook/{id}")
     public String editBookForm(@PathVariable("id") Long bookId, Model model) {
         Book book = repository.findById(bookId).orElse(null);
