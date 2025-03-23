@@ -10,12 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import viikko2.bookstore_t5.domain.Category;
 import jakarta.persistence.Table;
 
 @Entity
-@Table( name = "book")
+@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,14 +32,14 @@ public class Book {
     @Size(min = 3, max = 100, message = "must be between 3-100 characters")
     private String author;
 
-    @Column(name = "publicationyear")
+    @Column(name = "publicationyear", nullable = true)
     private Integer publicationYear;
 
-    @Column(name = "isbn")
-    @Size(max=100)
+    @Column(name = "isbn", nullable = true)
+    @Size(max = 100)
     private String isbn;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = true)
     private Double price;
 
     @ManyToOne
@@ -49,7 +50,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, Integer publicationYear, String isbn, double price, Category category) {
+    public Book(String title, String author, Integer publicationYear, String isbn, Double price, Category category) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
@@ -104,11 +105,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
